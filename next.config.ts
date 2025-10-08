@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
 };
 
-module.exports = {
+module.exports = { 
   images: {
     domains: ['rickandmortyapi.com'],
     unoptimized: true,

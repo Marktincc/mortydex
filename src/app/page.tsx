@@ -28,17 +28,23 @@ export default async function Home({ searchParams }: Props) {
 
   const data = await fetchFilteredCharacters(name, status, species, gender, undefined, page);
 
-
   return (
     <>
       <Header />
       <Searcher />
       <Filter />
       <Suspense fallback={<CardSkeletonList />}>
-        <CardList characters={data.results} />
+        {data.results.length > 0 ? (
+          <CardList characters={data.results} />
+        ) : (
+          <div className="flex justify-center items-center p-8">
+            <p className="text-xl text-gray-500">
+              No se encontraron personajes con los filtros seleccionados
+            </p>
+          </div>
+        )}
       </Suspense>
-      <Pagination info={data.info} />
+      {data.results.length > 0 && <Pagination info={data.info} />}
     </>
   );
-
 }

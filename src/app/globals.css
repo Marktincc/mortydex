@@ -1,17 +1,22 @@
 @import "tailwindcss";
 
-/* Definición del tema global */
 @theme {
-  /* 🎨 Colores */
+ 
   --color-primary: #1193d4;
   --color-background-light: #f6f7f8;
   --color-background-dark: #101c22;
+  --color-foreground-light: #101c22;
+  --color-foreground-dark: #f6f7f8;
+  --color-subtle-light: #4c809a;
+  --color-subtle-dark: #a3b3bd;
+  --color-border-light: #e1e8ed;
+  --color-border-dark: #2a3b47;
 
   
   --font-display: "Inter", sans-serif;
 
-  --radius: 0.25rem;      
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
+  --radius: 0.5rem;        
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
   --radius-full: 9999px;
 }
