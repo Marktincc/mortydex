@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@midudev/tailwind-animations";
 
 @theme {
  
@@ -19,4 +20,8 @@
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-full: 9999px;
+}
+.btn-click-effect:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease-in-out;
 }

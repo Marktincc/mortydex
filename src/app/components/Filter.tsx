@@ -4,9 +4,8 @@ import { NextPage } from 'next'
 import { useSearchParams, useRouter } from 'next/navigation';
 
 
-interface Props { }
-
-const Filter: NextPage<Props> = ({ }) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+const Filter: NextPage<{}> = ({ }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -24,7 +23,7 @@ const Filter: NextPage<Props> = ({ }) => {
   return (
     <div className="flex flex-wrap items-center gap-4 px-5 mb-6">
       <select
-        className="rounded px-3 border-primary/30 bg-background-light text-sm text-gray-900 ring-1 ring-inset ring-primary/20 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-background-dark dark:text-white h-8"
+        className="rounded px-3 outline-none border-primary/30 bg-background-light text-sm text-gray-900 ring-1 ring-inset ring-primary/20 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-background-dark dark:text-white h-8"
         onChange={(e) => handleChange('status', e.target.value)}
         defaultValue={searchParams.get('status') || 'all'}>
         <option value='all'>Estado</option>
@@ -33,7 +32,7 @@ const Filter: NextPage<Props> = ({ }) => {
         <option value='unknown'>Desconocido</option>
       </select>
       <select
-        className="rounded px-3 border-primary/30 bg-background-light text-sm text-gray-900 ring-1 ring-inset ring-primary/20 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-background-dark dark:text-white h-8"
+        className="rounded px-3 outline-none border-primary/30 bg-background-light text-sm text-gray-900 ring-1 ring-inset ring-primary/20 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-background-dark dark:text-white h-8"
         onChange={(e) => handleChange('species', e.target.value)}
         defaultValue={searchParams.get('species') || 'all'}>
         <option value='all'>Especie</option>
@@ -41,7 +40,7 @@ const Filter: NextPage<Props> = ({ }) => {
         <option value='alien'>Alien</option>
       </select>
       <select
-        className="rounded px-3 border-primary/30 bg-background-light text-sm text-gray-900 ring-1 ring-inset ring-primary/20 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-background-dark dark:text-white h-8"
+        className="rounded px-3 outline-none border-primary/30 bg-background-light text-sm text-gray-900 ring-1 ring-inset ring-primary/20 focus:ring-2 focus:ring-inset focus:ring-primary dark:bg-background-dark dark:text-white h-8"
         onChange={(e) => handleChange('gender', e.target.value)}
         defaultValue={searchParams.get('gender') || 'all'}>
         <option value='all'>Género</option>

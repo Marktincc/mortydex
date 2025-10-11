@@ -1,37 +1,27 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+const PUBLIC_ROUTES = ['/login', '/register'];
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const sessionCookie = request.cookies.get('session')?.value;
 
-  
-  const sessionId = request.cookies.get('sessionId')?.value;
-  const userRole = request.cookies.get('userRole')?.value;
+  const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
 
- 
-  const publicRoutes = ['/login', '/api/auth/login', '/register'];
-
-  
-  if (!sessionId && !publicRoutes.includes(pathname)) {
-    const loginUrl = new URL('/login', request.url);
-    return NextResponse.redirect(loginUrl);
+  if (sessionCookie && isPublicRoute) {
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
- 
-  if (sessionId && pathname === '/login') {
-    const homeUrl = new URL('/', request.url);
-    return NextResponse.redirect(homeUrl);
+  if (!sessionCookie && !isPublicRoute) {
+    return NextResponse.redirect(new URL('/login', request.url));
   }
-
-  // Puedes restringir rutas según roles si quieres (opcional)
-  // if (pathname.startsWith('/admin') && userRole !== 'admin') {
-  //   return NextResponse.redirect(new URL('/', request.url));
-  // }
 
   return NextResponse.next();
 }
 
 export const config = {
-
-  matcher: ['/((?!_next|static|favicon.ico|api).*)'],
+  matcher: [
+    '/((?!api/auth|_next/static|_next/image|favicon.ico|.*\.svg$).*)',
+  ],
 };

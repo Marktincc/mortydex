@@ -1,5 +1,4 @@
-import { fetchFilteredCharacters } from '@/app/api/characterapi';
-import Header from './components/Header';
+import { fetchFilteredCharacters } from '../lib/api/characterapi';
 import Searcher from './components/Searcher';
 import Filter from './components/Filter';
 import CardList from './components/CardList';
@@ -30,7 +29,7 @@ export default async function Home({ searchParams }: Props) {
 
   return (
     <>
-      <Header />
+      <div className='animate-fade-in'>
       <Searcher />
       <Filter />
       <Suspense fallback={<CardSkeletonList />}>
@@ -45,6 +44,7 @@ export default async function Home({ searchParams }: Props) {
         )}
       </Suspense>
       {data.results.length > 0 && <Pagination info={data.info} />}
+      </div>
     </>
   );
 }

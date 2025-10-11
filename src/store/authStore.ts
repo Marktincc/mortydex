@@ -1,44 +1,16 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-interface User {
-  id: string;
-  username: string;
-  email: string;
-  name: string;
-  role: 'admin' | 'user';
-}
-
-const USERS = [
-  {
-    id: '1',
-    username: 'admin',
-    email: 'admin@example.com',
-    password: 'admin123',
-    role: 'admin' as const,
-    name: 'Administrador'
-  },
-  {
-    id: '2',
-    username: 'user',
-    email: 'user@example.com',
-    password: 'user123',
-    role: 'user' as const,
-    name: 'Usuario Normal'
-  }
-];
+import { User } from '@/app/types/types';
 
 interface AuthStore {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (username: string, password: string) => boolean;
+  login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
   setLoading: (loading: boolean) => void;
   updateUser: (userData: Partial<User>) => void;
-  setUser: (user: User) => void;
 }
-
 
 export const useAuthStore = create<AuthStore>()(
   persist(
@@ -47,44 +19,43 @@ export const useAuthStore = create<AuthStore>()(
       isAuthenticated: false,
       isLoading: false,
 
-
-      login: (username, password) => {
-        const foundUser = USERS.find(
-          (u) => u.username === username && u.password === password
-        );
-
-        if (foundUser) {
-          const { password: _, ...userWithoutPassword } = foundUser;
-
-          set({
-            user: userWithoutPassword,
-            isAuthenticated: true,
-            isLoading: false,
+      login: async (username, password) => {
+        set({ isLoading: true });
+        console.time('Login Process');
+        try {
+          const response = await fetch('/api/auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
           });
 
+          if (!response.ok) {
+            set({ isLoading: false });
+            console.timeEnd('Login Process');
+            return false;
+          }
 
-          document.cookie = `sessionId=${foundUser.id}; path=/;`;
-
+          const { user } = await response.json();
+          set({ user, isAuthenticated: true, isLoading: false });
+          console.timeEnd('Login Process');
           return true;
+        } catch (error) {
+          console.error('Error en login:', error);
+          set({ isLoading: false });
+          console.timeEnd('Login Process');
+          return false;
         }
-
-        return false;
       },
 
       logout: async () => {
         try {
-          const response = await fetch('/api/auth/logout', {
+          await fetch('/api/auth/logout', {
             method: 'POST',
             cache: 'no-store',
           });
-
-          if (!response.ok) {
-            console.error('Error al cerrar sesión en el servidor');
-          }
         } catch (error) {
           console.error('Error en logout:', error);
         } finally {
-          // 🔹 Limpia el estado local inmediatamente
           set({
             user: null,
             isAuthenticated: false,
@@ -93,11 +64,7 @@ export const useAuthStore = create<AuthStore>()(
         }
       },
 
-
-
       setLoading: (loading) => set({ isLoading: loading }),
-
-      setUser: (user) => set({ user, isAuthenticated: true, isLoading: false }),
 
       updateUser: (userData) =>
         set((state) => ({
@@ -105,7 +72,7 @@ export const useAuthStore = create<AuthStore>()(
         })),
     }),
     {
-      name: 'auth-storage', // nombre de la clave en localStorage
+      name: 'auth-storage',
       partialize: (state) => ({
         user: state.user,
         isAuthenticated: state.isAuthenticated,

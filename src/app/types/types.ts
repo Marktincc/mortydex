@@ -34,3 +34,11 @@ export interface APIResponse {
   info: APIInfo;
   results: Character[];
 }
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'user';
+}

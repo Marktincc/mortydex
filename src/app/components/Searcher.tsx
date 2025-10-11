@@ -4,9 +4,8 @@ import { NextPage } from 'next'
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-interface Props { }
-
-const Searcher: NextPage<Props> = ({ }) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+const Searcher: NextPage<{}> = ({ }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('name') || '');

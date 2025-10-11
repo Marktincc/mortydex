@@ -31,7 +31,7 @@ const Cards: NextPage<Cardscharacter> = ({ characters }) => {
       {characters.map(character => (
         <div
           key={character.id}
-          className="group cursor-pointer rounded-lg bg-white shadow-md transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl dark:bg-gray-800"
+          className="group cursor-pointer rounded-lg bg-white shadow-md transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl dark:bg-gray-800 min-h-[320px]"
           onClick={() => handleCardClick(character.id)}
           suppressHydrationWarning
         >
@@ -43,6 +43,7 @@ const Cards: NextPage<Cardscharacter> = ({ characters }) => {
               width={500}
               height={500}
               alt={character.name}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             {/* Overlay para oscurecer */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" suppressHydrationWarning></div>

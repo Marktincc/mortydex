@@ -1,15 +1,15 @@
 import { NextPage } from 'next'
-import LoginForm from './components/Loginform'
-import Header from '../components/Header'
+import dynamic from 'next/dynamic';
 
-interface Props { }
 
-const Page: NextPage<Props> = ({ }) => {
+const LoginForm = dynamic(() => import('./components/Loginform'));
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+const Page: NextPage<{}> = ({ }) => {
   return (
     <>
-      <Header />
-      <div className="flex-grow flex items-center justify-center p-4">
-        <div className="w-full max-w-md mx-auto">
+      <div className="relative flex-grow flex items-center justify-center p-4 overflow-hidden">
+        <div className="relative z-10 w-full max-w-md mx-auto">
           <LoginForm />
         </div>
       </div>
