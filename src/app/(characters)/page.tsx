@@ -1,10 +1,8 @@
-import { fetchFilteredCharacters } from '../lib/api/characterapi';
-import Searcher from './components/Searcher';
-import Filter from './components/Filter';
-import CardList from './components/CardList';
-import Pagination from './components/Pagination';
-import { Suspense } from 'react';
-import CardSkeletonList from './components/CardSkeletonList';
+import { fetchFilteredCharacters } from '@/lib/dal/character';
+import Searcher from './_components/Searcher';
+import Filter from './_components/Filter';
+import CardList from './_components/CardList';
+import Pagination from './_components/Pagination';
 
 interface Props {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -32,17 +30,15 @@ export default async function Home({ searchParams }: Props) {
       <div className='animate-fade-in'>
       <Searcher />
       <Filter />
-      <Suspense fallback={<CardSkeletonList />}>
-        {data.results.length > 0 ? (
-          <CardList characters={data.results} />
-        ) : (
-          <div className="flex justify-center items-center p-8">
-            <p className="text-xl text-gray-500">
-              No se encontraron personajes con los filtros seleccionados
-            </p>
-          </div>
-        )}
-      </Suspense>
+      {data.results.length > 0 ? (
+        <CardList characters={data.results} />
+      ) : (
+        <div className="flex justify-center items-center p-8">
+          <p className="text-xl text-gray-500">
+            No se encontraron personajes con los filtros seleccionados
+          </p>
+        </div>
+      )}
       {data.results.length > 0 && <Pagination info={data.info} />}
       </div>
     </>

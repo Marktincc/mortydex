@@ -1,4 +1,4 @@
-import { Character } from '../types/types';
+import { Character } from '@/shared/types/types';
 import Cards from './Card';
 
 interface Props {

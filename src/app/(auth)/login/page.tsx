@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import dynamic from 'next/dynamic';
 
 
-const LoginForm = dynamic(() => import('./components/Loginform'));
+const LoginForm = dynamic(() => import('./_components/Loginform'));
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 const Page: NextPage<{}> = ({ }) => {

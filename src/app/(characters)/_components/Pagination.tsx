@@ -2,7 +2,7 @@
 
 import { NextPage } from 'next'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { APIInfo } from '../types/types';
+import { APIInfo } from '@/shared/types/types';
 import { useTransition } from 'react';
 
 interface Props {

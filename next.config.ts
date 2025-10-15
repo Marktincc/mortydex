@@ -2,7 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['rickandmortyapi.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'rickandmortyapi.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
     // unoptimized: true, // Removed to enable image optimization
   },
   turbopack: {

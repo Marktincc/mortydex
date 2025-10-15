@@ -38,7 +38,9 @@ export async function fetchFilteredCharacters(
   if (page) params.append('page', page);
 
   const url = `${baseUrl}/character/?${params.toString()}`;
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    next: { revalidate: 60 }, // Revalidate every 60 seconds
+  });
 
   // Si la respuesta no es ok, devolvemos un objeto con resultados vacíos
   if (!res.ok) {

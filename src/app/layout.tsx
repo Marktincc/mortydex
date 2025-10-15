@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { Toaster } from 'sonner';
-import Header from "./components/Header";
+import AuthHeaderWrapper from "@/shared/components/AuthHeaderWrapper";
 
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function RootLayout({
         className="bg-background-light dark:bg-background-dark font-display text-foreground-light dark:text-foreground-dark"
         suppressHydrationWarning={true}
       >
-      <Header />
+      <AuthHeaderWrapper />
       <main>
         {children}
       </main>

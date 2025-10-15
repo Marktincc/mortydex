@@ -2,7 +2,7 @@
 
 import { NextPage } from 'next'
 import Image from 'next/image'
-import { Character } from '../types/types';
+import { Character } from '@/shared/types/types';
 import { useRouter } from 'next/navigation';
 
 interface Cardscharacter {

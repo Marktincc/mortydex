@@ -1,5 +1,5 @@
-import { fetchCharacterById } from '@/lib/api/characterapi';
-import { Character } from '@/app/types/types';
+import { fetchCharacterById } from '@/lib/dal/character';
+import { Character } from '@/shared/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -41,14 +41,16 @@ export default async function CharacterPage({ params }: { params: { id: string }
         <div className="bg-background-light dark:bg-background-dark shadow-lg rounded-xl overflow-hidden mx-auto animate-fade-in animate-slide-up animate-duration-[800ms] animate-ease-out animate-delay-[200ms]">
           <div className="md:flex">
             <div className="md:flex-shrink-0 animate-zoom-in animate-duration-[700ms] animate-delay-[100ms]">
-              <Image
-                alt={character.name}
-                className="h-64 w-full object-cover md:h-full md:w-64"
-                src={character.image}
-                height={256}
-                width={256}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
+              <div className="h-64 w-full md:h-full md:w-64">
+                <Image
+                  alt={character.name}
+                  className="object-cover h-full w-full"
+                  src={character.image}
+                  height={256}
+                  width={256}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              </div>
             </div>
 
             {/* 🧾 Info personaje */}
